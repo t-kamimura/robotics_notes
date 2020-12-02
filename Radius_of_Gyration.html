@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Radius_of_Gyration.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+      ]
+    });
+  });
+</script>
+</head>
+<body>
+<h1 id="%E5%89%9B%E4%BD%93%E3%81%AE%E8%A1%9D%E7%AA%81%E5%8A%9B%E5%AD%A6%E5%B9%B3%E9%9D%A2">剛体の衝突力学（平面）</h1>
+<p>剛体に撃力が加えられると，並進速度の変化だけでなく角速度の変化も発生する．この関係についてまとめる．</p>
+<h2 id="%E6%85%A3%E6%80%A7%E3%83%A2%E3%83%BC%E3%83%A1%E3%83%B3%E3%83%88">慣性モーメント</h2>
+<div align="center">
+    <img src="fig/moment_of_inertia.png" alt="剛体中の質点" width = "300">
+</div>
+<p>ある軸まわりの剛体の慣性モーメントを求めると，
+$$
+I = \sum_i m_i r_i^2
+$$
+となる．ここで，$m_i$は軸から$r_i$離れた位置にある，剛体の微小分割．
+これをさらに細かく分割して，微小体積$dV$の積分として表すと
+$$
+I = \int \rho r^2 dV
+$$
+となる．ここで$\rho$は剛体の密度を表す．</p>
+<h3 id="%E5%89%9B%E4%BD%93%E3%81%AE%E5%9B%9E%E8%BB%A2">剛体の回転</h3>
+<p>剛体に対して，軸回りにトルク$N$をかけたとき，剛体の角運動量$L$について以下が成立する．
+$$
+\frac{{\rm d}L}{{\rm d}t} = I\ddot{\theta} =N
+$$
+ここで，$\theta$は剛体が軸となす角度．
+外からトルクが加えられていない状況では，
+$$
+\frac{{\rm d}L}{{\rm d}t} =0
+$$
+となり，$L$は一定となる．これを<strong>角運動量保存則</strong>という．
+（概念を拡張して，$N\neq 0$のときも角運動量保存則と呼んだりする．）</p>
+<h3 id="%E6%85%A3%E6%80%A7%E5%8D%8A%E5%BE%84">慣性半径</h3>
+<p><strong>慣性半径 (Radius of Gyration)</strong>$R$という量を定義すると便利なことがある．
+$$
+MR^2 = I
+$$
+これは，剛体の質量$M$が，慣性モーメントを変えることなく軸から$R$の距離に集まっていると考えることができる．</p>
+<h3 id="%E5%B9%B3%E8%A1%8C%E8%BB%B8%E3%81%AE%E5%AE%9A%E7%90%86">平行軸の定理</h3>
+<p>ある軸周りの慣性モーメントが$I$であるとき，そこから$r$離れた軸回りの慣性モーメントは
+$$
+I' = I + Mr^2
+$$
+となる．</p>
+<h2 id="%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%81%AA%E6%8C%AF%E3%82%8A%E5%AD%90%E6%BA%96%E5%82%99">シンプルな振り子（準備）</h2>
+<p>質点$m$が長さ$l$の糸で点$O$から吊るされている．鉛直方向と振り子のなす角度を$\theta$とする．この系の$O$周りの慣性モーメントは
+$$
+I = ml^2
+$$
+であり，重力が及ぼすトルクは
+$$
+N = -mgl\sin\theta
+$$
+である．
+したがって，角運動量保存則から
+$$
+\ddot{\theta} = -\frac{g}{l}\sin\theta
+$$
+となる．</p>
+<h2 id="%E5%89%9B%E4%BD%93%E6%8C%AF%E3%82%8A%E5%AD%90">剛体振り子</h2>
+<div align="center">
+    <img src="fig/rigid_pendulum.png" alt="剛体振り子" width = "200">
+</div>
+<p>固定された軸が質量中心を通らないような質量$M$の剛体振り子を考える．
+剛体の固定点と質量中心を通る直線が鉛直方向となす角度を$\theta$とする．
+この振り子の運動方程式は
+$$
+MR_O^2\ddot{\theta} = -Mgh\sin\theta
+$$
+ここで，$h$は距離$\bar{OG}$であり，$R_O$は$O$を軸とした慣性半径である．
+この運動方程式は，
+$$
+l = \frac{R_O^2}{h}
+$$
+としたとき，質量$M$の質点のシンプルな振り子の運動方程式と一致する．
+すなわち，質量$M$が半直線$OG$上の$O$から$l$離れた点$O'$に集まったときの振動が，剛体振り子の振動と一致する．
+$$
+l = h + h'
+$$
+$$
+hh' = R_O^2 - h^2
+$$
+を満たすとき，点$O'$を<strong>振動中心(center of oscillation)</strong> と呼ぶ．</p>
+<p>$G$まわりの慣性半径を$R_G$とすると，平行軸の定理から
+$$
+R_O^2 = R_G^2 + h^2
+$$
+となる．これを用いると，
+$$
+hh' = R_G^2
+$$
+が成立する．
+この式は$h$と$h'$に関して対称である（すなわち，$h$と$h'$が入れ替わっても成立）．
+すなわち，点$O'$を軸とした剛体振り子を作ると，その振動中心は$O$となる．</p>
+<h2 id="%E5%89%9B%E4%BD%93%E3%81%AB%E6%92%83%E5%8A%9B%E3%82%92%E5%8A%A0%E3%81%88%E3%82%8B">剛体に撃力を加える</h2>
+<div align="center">
+    <img src="fig/center_of_percussion.png" alt="COP" width = "200">
+</div>
+<p>点$O$を軸として固定された剛体振り子を考える．
+軸から$l$離れた位置にある点$O'$に撃力を加える．
+撃力は直線$\bar{OO'}$に垂直な向きを向いているとする．
+$O'$が，直線$\bar{OO'}$が質量中心$G$を通るとして，$h$と$h'$をそれぞれ距離$\bar{OG}$，$\bar{OG'}$とする．
+点$O'$に加えられた撃力は
+$$
+J' = \int F' {\rm d}t
+$$
+である．このとき，点$O$では，固定された軸が動かないように撃力$J$が発生する．
+$$
+J = \int F {\rm d}t
+$$
+剛体の（線）運動量変化は
+$$
+\frac{{\rm d}P}{{\rm d}t} = \frac{{\rm d}}{{\rm d}t}(Mh\dot{\theta}) = F+F'
+$$
+である．ここで，$\dot{\theta}$は剛体の$O$周りの角速度．
+これを積分して，撃力による運動量の変化は
+$$
+Mh\dot{\theta} = J+J'
+$$
+となる．ただし，剛体は撃力を加える前は静止していたものとした．
+$O$周りの角運動量保存則は，
+$$
+\frac{{\rm d}L}{{\rm d}t} = \frac{{\rm d}}{{\rm d}t}(MR_O^2\dot{\theta}) = F'l
+$$
+であり，これを積分して
+$$
+MR_O^2\dot{\theta} = J'l
+$$
+を得る．
+以上の結果を用いて$\dot{\theta}$を消去すると，
+$$
+hl = R_O^2\left(1+\frac{J}{J'}\right)
+$$
+となる．</p>
+<p>ここで，$O'$をいい感じの場所にとって，$J=0$とすることを考えよう．このとき，$h$と$l$の関係は
+$$
+hl = R_O^2
+$$
+となる．
+$l = h + h'$と，$R_O^2 = R_G^2 + h^2$から
+$$
+hh' = R_G^2
+$$
+という関係が得られる．
+点$O'$に撃力を加えたとき，点$O$では角速度変化が一切生じない．
+このような点$O$を，<strong>撃力中心(Center of percussion)</strong> と呼ぶ．
+撃力中心と振動中心が同じ点であることに注意しよう．</p>
+<p>剛体が固定されておらず，撃力中心$O'$に撃力が加えられたとき，その直後の運動は$O$周りの回転となる．</p>
+<p>このような点は，野球でバットを振る場合などに有効である．
+球を打ち返すときに，撃力中心に当てるようにすれば，回転中心である手に返ってくる力はゼロとなる．</p>
+<h2 id="reference">Reference</h2>
+<p>K. Symon, &quot;Mechanics&quot;, Addison-Wesley Publishing, 1971.</p>
+
+</body>
+</html>

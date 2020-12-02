@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>dynamics_1</title>
+  <style>
+    html {
+      line-height: 1.7;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 40em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin-top: 1.7em;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.7em;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1.7em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1.7em 0 1.7em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      font-style: italic;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      background-color: #f0f0f0;
+      font-size: 85%;
+      margin: 0;
+      padding: .2em .4em;
+    }
+    pre {
+      line-height: 1.5em;
+      padding: 1em;
+      background-color: #f0f0f0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin-top: 1.7em;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+    }
+    th, td {
+      border-bottom: 1px solid lightgray;
+      padding: 1em 3em 1em 0;
+    }
+    header {
+      margin-bottom: 6em;
+      text-align: center;
+    }
+    nav a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="動力学">動力学</h1>
+<p>マニピュレータに可能な運動と不可能な運動</p>
+<h2 id="ニュートンの運動方程式">ニュートンの運動方程式</h2>
+<p>巨視的には，すべてのものは運動方程式に従って運動します． ロボットの運動を考える上では，微視的な量子効果は無視できるほど小さいと考えて良いでしょう．</p>
+<p><span class="math inline"><em>x</em></span>軸に沿って動く重さ<span class="math inline"><em>m</em></span>の質点に対し，力<span class="math inline"><em>F</em></span>がかかっているとき， <span class="math display">$$
+\ddot{x} = \frac{F}{m}
+$$</span> が成立します．これを<strong>ニュートンの運動方程式</strong>と呼びます．<span class="math inline">$\dot{*}$</span>は時間による微分を表しています． これは，質点に力を与えると，それに比例して<strong>加速度</strong>が生まれることを表しています．質量は<strong>ものの動かしにくさ</strong>の指標で，重いほど加速度が生まれにくいことを示しています．</p>
+<h2 id="オイラーの運動方程式">オイラーの運動方程式</h2>
+<p>ロボティクスで扱う運動は<strong>剛体</strong>に対して考えることが多いでしょう． そこで，平面上に置かれたリンクに対して，回転軸が取り付けられていて，そこにモーメント（偶力）<span class="math inline"><em>τ</em></span>がかかっているときの運動を考えましょう．リンクの姿勢を<span class="math inline"><em>θ</em></span>とすると， <span class="math display">$$
+\ddot{\theta} = \frac{\tau}{I}
+$$</span> ここで，<span class="math inline"><em>I</em></span>は回転軸周りの慣性モーメントを表しています． これは，剛体の回転軸周りにモーメントを与えると，それに比例して<strong>角加速度</strong>が生まれることを表しています．慣性モーメントは<strong>ものの回しにくさ</strong>の指標で，大きいほど角加速度が生まれにくいことを示しています．</p>
+<h2 id="運動方程式の一般形">運動方程式の一般形</h2>
+<p>ニュートンの運動方程式と，オイラーの運動方程式はよく似た形をしています．もっと一般的に考えることにしましょう． 位置や姿勢を<strong>一般化座標</strong><span class="math inline"><em>q</em></span>と置きます．<span class="math inline"><em>q</em></span>はスカラーでもベクトルでも構いません．このとき運動方程式は <span class="math display">$$
+\ddot{q} =M(q)^{-1} Q
+$$</span> と書けます．<span class="math inline"><em>M</em>(<em>q</em>)</span>は慣性行列，<span class="math inline"><em>Q</em></span>は一般化力と呼ばれます．</p>
+<h3 id="もっと一般的に">もっと一般的に</h3>
+<p>外力をまとめて書くのもいいのですが，外力の中にはポテンシャルから受ける力や遠心力，コリオリの力などが含まれます． これらの力は外部から手やモーターで加える力と分けておきたいですね． このような要求が存在するときの運動方程式は <span class="math display">$$
+M(q)\ddot{q} + h(q,\dot{q}) + g(q) = Q
+$$</span> となります．<span class="math inline"><em>g</em>(<em>q</em>)</span>がポテンシャルから受ける力（重力やバネ力です），<span class="math inline"><em>h</em>(<em>q</em>, <em>q̇</em>)</span>が遠心力・コリオリの力を表します．</p>
+<h3 id="ラグランジュの運動方程式">ラグランジュの運動方程式</h3>
+<p>さらに一般化していきましょう．一般化座標<span class="math inline"><em>q</em></span>に対してラグランジュの運動方程式は <span class="math display">$$
+\frac{\rm d}{{\rm d}t}\left(\frac{\partial L}{\partial \dot{q}}\right) - \frac{\partial L}{\partial q}  = Q
+$$</span> と書けます．<span class="math inline"><em>L</em></span>は<strong>ラグランジアン</strong>と呼ばれる量で， <span class="math display"><em>L</em> = <em>T</em> − <em>U</em></span> となります．<span class="math inline"><em>T</em></span>は系の運動エネルギー，<span class="math inline"><em>U</em></span>は系のポテンシャルエネルギーです．</p>
+<h3 id="もっと具体的に">もっと具体的に</h3>
+<p>一般的な運動方程式の表式は得られましたが，具体的にどのような形をしているのでしょうか．少し具体的な問題を考えてみましょう．</p>
+<p><span class="math inline"><em>x</em></span>軸上を動く質点<span class="math inline"><em>m</em></span>に線形バネ<span class="math inline"><em>k</em></span>，線形ダンパ<span class="math inline"><em>c</em></span>が取り付けられ，外力<span class="math inline"><em>F</em></span>が加えられている状況を考えましょう．このとき運動方程式は <span class="math display">$$
+m\ddot{x} + c\dot{x} + kx = F
+$$</span> となります．</p>
+<p>次に，<span class="math inline"><em>x</em></span>軸上を動く2質点<span class="math inline"><em>m</em><sub>1</sub>, <em>m</em><sub>2</sub></span>がバネ<span class="math inline"><em>k</em></span>で接続されている系を考えましょう． このとき運動方程式は <span class="math display">$$
+m_1 \ddot{x}_1 = -k(x_1 - x_2)\\
+m_2 \ddot{x}_2 = -k(x_2 - x_1)
+$$</span> となります． ここで <span class="math display">$$
+M=\begin{bmatrix}
+    m_1 &amp; 0\\
+    0 &amp; m_2
+\end{bmatrix}, q=\begin{bmatrix}
+    x_1, x_2
+\end{bmatrix}
+$$</span> とおくと，運動方程式は <span class="math display">$$
+M\ddot{q} = \begin{bmatrix}
+    -k &amp; k\\
+    k &amp; k
+\end{bmatrix}q
+$$</span> と書くこともできます．</p>
+</body>
+</html>
