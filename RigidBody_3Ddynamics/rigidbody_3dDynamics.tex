@@ -1,0 +1,162 @@
+\documentclass[a4j,10pt]{jsarticle}
+
+%================================================================
+% Include required packages
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{ascmac,setspace}
+\usepackage{cite}
+\usepackage[normalem]{ulem}
+%================================================================
+% Original command definition
+\def\vctr#1{\mbox{\boldmath $#1$}}
+\newcommand{\bbn}[2]{\dfrac{{\rm {\rm d}} #1}{{\rm {\rm d}} #2}}
+\newcommand{\henbbn}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\zenbbn}[1]{\mathrm{d} #1}
+\usepackage{amsmath, amssymb,amsfonts, amsthm}
+%================================================================
+% Re-define commands
+\makeatletter % プリアンブルで定義開始
+\renewcommand{\figurename}{Fig. }  % 表示文字列を"図"から"Figure"へ
+\makeatother % プリアンブルで定義終了
+%================================================================
+\begin{document}
+%================================================================
+\title{剛体の3次元運動方程式}
+\author{名工大 上村知也}
+%================================================================
+\setlength{\baselineskip}{4.4mm}	% 行間の設定
+\maketitle
+%\thispagestyle{empty}
+%\pagestyle{empty}
+\setstretch{1.0} % ページ全体の行間を設定
+%================================================================
+% \tableofcontents
+% \newpage
+%================================================================
+\section{ラグランジュ形式に基づく運動方程式の導出}
+剛体1内の任意の点の速度を$\vctr{v}_1$とする。
+\begin{align}
+    \vctr{v}_1 &= [\vctr{a}_1]^\top v_1\\
+    v_1 &= A_{10}\dot{r_0}+\tilde{\rho}\omega_{10}= (\mathcal{L}+\rho)z
+\end{align}
+ここで、
+\begin{align*}
+    z &= \begin{bmatrix}
+        \dot{r}_0\\
+        \omega_{10}
+    \end{bmatrix},
+    \quad
+    \mathcal{L} = \begin{bmatrix}
+        A_{10} & O
+    \end{bmatrix},
+    \quad
+    \rho = \begin{bmatrix}
+        O & \tilde{\rho}_1
+    \end{bmatrix}
+\end{align*}
+である。
+$A_{10}$は慣性座標から見た物体座標系の姿勢を表す$3 \times 3$の回転行列、$O$は$3 \times 3$のゼロ行列、$\tilde{\rho}_{1}$は、剛体内の任意のベクトル$\rho_1$による外積を表す行列で、
+\begin{align*}
+    \tilde{\rho}_1 = \begin{bmatrix}
+        -\rho_{1,3} & \rho_{1,2} & \rho_{1,1}\\
+        \rho_{1,3} & -\rho_{1,2} & \rho_{1,1}\\
+        \rho_{1,3} & \rho_{1,2} & -\rho_{1,1}
+    \end{bmatrix}
+\end{align*}
+である。
+さらに、$z$は速度をまとめたベクトルであり、$\mathcal{L}$は回転行列、$\rho$は剛体内部の位置を表すベクトルの外積行列と捉えればよい。
+
+剛体1の運動エネルギー$T$は次の通り。
+\begin{align}
+    T &= \frac{1}{2}\int_1 \vctr{v}_1^\top \vctr{v}_1 \zenbbn{m_1}
+\end{align}
+ここで、
+\begin{align*}
+    \mathcal{E} = \begin{bmatrix}
+        O & \int_1 \tilde{\rho}_1 \zenbbn{m_1}
+    \end{bmatrix},
+    \quad
+    \mathcal{J} = \begin{bmatrix}
+        O & O\\
+        O & \int_1 \tilde{\rho}_1^\top \tilde{\rho}_1\zenbbn{m_1}
+    \end{bmatrix}
+\end{align*}
+とおくと、
+\begin{align}
+    T &=\frac{1}{2}\int_1 z^\top (\mathcal{L} + \mathcal{\rho})^\top(\mathcal{L}+\mathcal{\rho})z\nonumber\\
+    &= \frac{1}{2}z^\top\left( m_1 \mathcal{L}^\top \mathcal{L} + \mathcal{L}^\top \mathcal{E} + \mathcal{E}^\top \mathcal{L} + \mathcal{J} \right)z
+\end{align}
+とシンプルに書き表せる。
+なお、これを展開すると
+\begin{align*}
+    2T &= m_1\dot{r}_0A_{10}^\top A_{10}\dot{r}_0
+    + (A_{10}\dot{r}_0)^\top \left(\int_1 \tilde{\rho}_1 \zenbbn{m_1}\right)\omega_{10}\\
+    &\quad+ (A_{10}\omega_{10})^\top \left(\int_1 \tilde{\rho}_1 \zenbbn{m_1}\right)\dot{r}_0
+    + \omega_{10}^\top \left(\int_1 \tilde{\rho}_1^\top \tilde{\rho}_1\zenbbn{m_1}\right) \omega_{10}
+\end{align*}
+である。
+
+並進のラグランジュの運動方程式は
+\begin{align}
+    \bbn{}{t}\left( \henbbn{T}{\dot{r}_{0,i}} \right) - \henbbn{T}{r_{0,i}} = F_{0,i}
+\end{align}
+であり、回転のラグランジュの運動方程式は
+\begin{align}
+    \bbn{}{t}\left( \henbbn{T}{\omega_{10,i}} \right) - \left( \omega_{10,j}\henbbn{T}{\omega_{10,k}} - \omega_{10,k}\henbbn{T}{\omega_{10,j}} \right) = N_{1,i}
+\end{align}
+である（詳細は別紙「角速度と擬座標を用いた運動方程式」参照）。
+ただし、外力$f^{e}$による仮想仕事$\delta W$は以下で与えられる。
+\begin{align}
+    \delta W = \delta r_0^\top F_0 + \delta \Omega_{10}^\top N_1
+    =\begin{bmatrix}
+        \delta r_0^\top & \delta \Omega_{10}^\top
+    \end{bmatrix}\begin{bmatrix}
+        F_0\\
+        N_1
+    \end{bmatrix}
+\end{align}
+ここで、
+\begin{align*}
+    F_0 = \int_1 A_{01}f_1^{e}\zenbbn{m_1}\\
+    N_1 = \int_1 \tilde{\rho}_1^\top f_1^{e}\zenbbn{m_1}
+\end{align*}
+とした。$F_0$は剛体にかかる外力の総和であり、$N_1$は剛体にかかる外力が及ぼすトルクの総和である。
+
+一般化運動量$P_0$, $L_1$を以下のように定義する。
+\begin{align}
+    P_0 = \henbbn{T}{\dot{r}_0}
+    =\begin{bmatrix}
+        \henbbn{T}{\dot{r}_{0,1}}\\
+        \henbbn{T}{\dot{r}_{0,2}}\\
+        \henbbn{T}{\dot{r}_{0,3}}
+    \end{bmatrix}
+    \quad
+    L_0 = \henbbn{T}{\omega_{10}}
+    =\begin{bmatrix}
+        \henbbn{T}{\omega_{10,1}}\\
+        \henbbn{T}{\omega_{10,2}}\\
+        \henbbn{T}{\omega_{10,3}}
+    \end{bmatrix}
+\end{align}
+$P_0$は(線)運動量、$L_1$は角運動量と呼ばれる。
+これをラグランジュの運動方程式にそれぞれ代入すると
+\begin{align}
+    \dot{P}_0 = F_0\\
+    \dot{L}_0 + \tilde{\omega}_{10}^\top L_1 + A_{10}\tilde{\dot{r}}_0^\top P_0 = N_1
+\end{align}
+を得る。
+並進方向については馴染みのあるニュートンの運動方程式である。
+回転方向の運動方程式は、一見ややこしい形をしているが、
+もし物体座標系を剛体の質量中心に取れば、回転の運動方程式は
+\begin{align}
+    \dot{L}_0 = N_1
+\end{align}
+と簡単になる。
+
+%================================================================
+% \begin{thebibliography}{9}
+%     \bibitem{ODE} 笠原，微分方程式の基礎，朝倉書店，1982．
+%     \bibitem{Goldstein} Goldstein, 古典力学（上），吉岡書店，2006．
+%     \bibitem{Whitekker} Whittaker，解析力学〈上〉，講談社，1977．
+% \end{thebibliography}
+\end{document}
