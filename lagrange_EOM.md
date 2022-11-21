@@ -46,7 +46,6 @@ $$
 以上をまとめると，ダランベールの原理は一般化座標と一般化力を用いて
 $$
     \sum_j \left\lbrace\frac{{\rm d}}{{\rm d}t}\left(\frac{\partial T}{\partial \dot{q}_j}\right) + \frac{\partial T}{\partial q_j} - Q_j \right\rbrace \delta q_j=0
-
 $$
 となる．
 
