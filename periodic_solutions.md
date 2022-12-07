@@ -52,7 +52,7 @@ $$
 \end{bmatrix}
 =\begin{bmatrix}
 \dot{q}\\
-M^{-1}(q)(Q-h(q,\dot{q})-g(q))   
+M^{-1}(q)(Q-h(q,\dot{q})-g(q))
 \end{bmatrix}
 $$
 と書き表すことができる．これが**状態空間**における運動方程式である．この形式では，$z$に関する1階微分の形で表されているので，数値計算等に便利である．
@@ -99,14 +99,14 @@ $$
 このように，**運動方程式は，状態空間内にベクトル場を生成**する方程式であると捉えることもできる．
 
 <div align="center">
-    <img src="fig/../spring_phasePlane1.jpg" alt="phasePlane" width = "300">
+    <img src="fig/spring_phasePlane1.jpg" alt="ベクトル場" width = "300">
 </div>
 
 ある状態$z_0$を与えると，系は運動方程式に従って時間発展していく．これは状態空間内の点$z_0$が，ベクトル場に沿って流れていくことに対応する．
 状態空間$x$-$y$内のさまざまな点$z$から出発し，ベクトル場に沿って移動していく様子を以下の図に示す．流れを示す曲線を**軌跡**と呼ぶ．バネマス系の運動は，$x$軸の運動を見ると単振動となるが，状態空間内では楕円を描くことがわかる．
 
 <div align="center">
-    <img src="fig/../spring_phasePlane2.jpg" alt="剛体中の質点" width = "300">
+    <img src="fig/spring_phasePlane2.jpg" alt="軌跡" width = "300">
 </div>
 
 ## 2. ポアンカレ断面と周期解

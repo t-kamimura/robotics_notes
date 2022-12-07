@@ -78,14 +78,14 @@ M=\begin{bmatrix}
     m_1 & 0\\
     0 & m_2
 \end{bmatrix}, q=\begin{bmatrix}
-    x_1, x_2
+    x_1\\ x_2
 \end{bmatrix}
 $$
 とおくと，運動方程式は
 $$
 M\ddot{q} = \begin{bmatrix}
     -k & k\\
-    k & k
+    k & -k
 \end{bmatrix}q
 $$
 と書くこともできます．
