@@ -6,6 +6,7 @@
 \usepackage{ascmac,setspace}
 \usepackage{cite}
 \usepackage[normalem]{ulem}
+\usepackage{fancybox}
 %================================================================
 % Original command definition
 \def\vctr#1{\mbox{\boldmath $#1$}}
@@ -20,10 +21,10 @@
 %================================================================
 \begin{document}
 %================================================================
-\title{角速度と擬座標を用いた運動方程式}
-\author{名工大 上村知也}
+\title{解説：角速度と擬座標を用いた運動方程式}
+\author{上村知也}
 %================================================================
-\setlength{\baselineskip}{4.4mm}	% 行間の設定
+\setlength{\baselineskip}{3.8mm}	% 行間の設定
 \maketitle
 %\thispagestyle{empty}
 %\pagestyle{empty}
@@ -33,7 +34,7 @@
 % \newpage
 %================================================================
 \section{はじめに}
-3次元空間内の角速度$\omega$は，3次元ベクトルで表せる．これを積分してもオイラー角にはならない．
+3次元空間内の角速度$\omega$は，3次元ベクトルで表せるが，これを積分しても姿勢を表すオイラー角にはならない．
 そもそも，角速度は何らかの座標の時間微分として表すことができない．
 これはなぜか，そしてそのような場合にラグランジュの運動方程式はどのように表されるのか考えてみよう．
 
@@ -44,7 +45,7 @@
 角速度の議論を行う前にまず，積分関数が簡単に求められる微分方程式について考えるところから始めよう．
 \begin{align}
     F(x,y){\rm d} x + G(x,y){\rm d} y=0
-    \label{eq:zenbibun}  
+    \label{eq:zenbibun}
 \end{align}
 という形の微分方程式を全微分型の方程式と呼び，解は$\phi(x,y) = c$の形で与えられる．この方程式について詳しく見ていく．
 
@@ -58,7 +59,7 @@
 \end{subequations}
 とする．このとき，
 \begin{align}
-    \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}    
+    \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}
 \end{align}
 が成立する．$(x,y)$空間内にポテンシャル$\phi$に由来するベクトル場$(P,Q)$が存在すると考えるとイメージがつきやすい．
 
@@ -79,10 +80,8 @@
 \end{align*}
 となり，$\phi$が確かにポテンシャル関数になっていることが確認される．
 
-以上から，2次元ベクトル場$(P,Q)$がポテンシャル$\phi(x,y)$を持つための必要十分条件は$\partial P/\partial y - \partial Q /\partial x=0$が成立することである．
-(ベクトル解析の言葉を使って，${\rm rot(P,Q)=0}$としてもよい)
-
-言い換えると，偏微分が入れ替え可能すなわち
+以上から，2次元ベクトル場$(P,Q)$がポテンシャル$\phi(x,y)$を持つための必要十分条件は$\partial P/\partial y - \partial Q /\partial x=0$が成立することである(ベクトル解析の言葉を使って，${\mathrm{rot}(P,Q)=0}$としてもよい)．
+言い換えると，偏微分が入れ替え可能であること，すなわち
 \begin{align}
     \frac{\partial}{\partial y}\frac{\partial \phi}{\partial x}=\frac{\partial}{\partial x}\frac{\partial \phi}{\partial y}
 \end{align}
@@ -95,12 +94,12 @@
     \label{fig:integral_path}
 \end{figure}
 
-以上から，全微分型の方程式\eqref{eq:zenbibun}の解は，ポテンシャル関数$\phi(x,y)=c$となる．$c$は任意定数．
+以上から，全微分型の方程式\eqref{eq:zenbibun}の解は，ポテンシャル関数$\phi(x,y)=c$となる（$c$は任意定数）．
 
 \subsection{一般化した全微分型の方程式}
-$k,l=1,...,n$のすべての値に対して
+上記を一般化する．$k,l=1,...,n$のすべての値に対して
 \begin{align}
-    \frac{\partial P_k}{\partial q_l} = \frac{\partial P_l}{\partial q_k}    
+    \frac{\partial P_k}{\partial q_l} = \frac{\partial P_l}{\partial q_k}
 \end{align}
 が成立するとき，ポテンシャル関数$\phi(q_1,...,q_n)$が存在する．
 
@@ -108,17 +107,17 @@ $k,l=1,...,n$のすべての値に対して
 \begin{align}
     P_1 {\rm d} q_1 + P_2 {\rm d} q_2 + \cdots + P_n {\rm d} q_n=0
 \end{align}
-の解はポテンシャル関数$\phi(q_1,...,q_n)=c$で与えられる．$c$は任意定数．
+の解はポテンシャル関数$\phi(q_1,...,q_n)=c$で与えられる（$c$は任意定数）．
 このような状況を，積分関数の存在が簡単に示せることから，\textbf{直ちに積分できる}と呼ぶことにしよう．
 
 \section{真の座標と擬座標}
 ここからは力学の問題を考える．
 一般化座標$q_1,...,q_n$で表される系におけるラグランジュの運動方程式は
 \begin{align}
-    \bbn{}{t}\left(\frac{\partial T}{\partial q_i}\right)-\frac{\partial T}{\partial q_i}=Q_i
+    \bbn{}{t}\left(\frac{\partial T}{\partial \dot{q}_i}\right)-\frac{\partial T}{\partial q_i}=Q_i
     \label{eq:Lagrange_equation}
 \end{align}
-で与えられる．ここで，$T$は運動エネルギー，$Q_i$は一般化力である．
+で与えられる．ここで，$T$は運動エネルギー，$Q_i$は一般化力である．ここでは保存力も$Q_i$に含めている．
 
 速度$\omega_1,...,\omega_n$を，一般化座標$\dot{q}_1,...,\dot{q}_n$の一次結合で定義する：
 \begin{align}
@@ -126,8 +125,9 @@ $k,l=1,...,n$のすべての値に対して
     \label{eq:omega_definition}
 \end{align}
 ただし，$a_{ik}$は$q_1,...,q_n$の与えられた関数である（定数ではない）．
-
-上記の定義では，$\omega_i$は何らかの位置の時間微分としては定義されていない．この速度に対応する「位置」と呼べる関数$\pi_i$が存在するとしよう．このとき，${\rm d} \pi_i$を微分${\rm d} q_1, ... ,{\rm d} q_n$の一次結合で
+上記の定義では，$\omega_i$は何らかの位置の時間微分としては定義されていない．
+この新しい``速度''に対応する``位置''と呼べる関数$\pi_i$が存在すると仮定しよう（もしかするとそのような関数はないかもしれない！）．
+このとき，${\rm d} \pi_i$を微分${\rm d} q_1, ... ,{\rm d} q_n$の一次結合で
 \begin{align}
     {\rm d}\pi_i = a_{i1}{\rm d} q_1 + a_{i2}{\rm d} q_2 + \cdots + a_{in}{\rm d} q_n
     \label{eq:derivative_of_pi}
@@ -141,7 +141,9 @@ $k,l=1,...,n$のすべての値に対して
 が成立するならば，\eqref{eq:derivative_of_pi}は全微分型の方程式であり，その解$\pi_i$は\textbf{直ちに積分できる}（ポテンシャル関数を求めればよい）ことになる．このような$\pi_i$を\textbf{真の座標}と呼ぶ．
 この場合，$\omega_i$は正しく$\pi_i$の時間微分として与えられることになる．
 
-【注意】「ポテンシャル関数」と書いたが，エネルギーを求めるわけではない．速度を積分して位置を求める問題であることを失念してはならない．
+\begin{itembox}{注意}
+「ポテンシャル関数」と書いたが，エネルギーを求めるわけではない！速度を積分して位置を求める問題であることを失念してはならない．
+\end{itembox}
 
 ここで，
 \begin{align}
@@ -149,12 +151,14 @@ $k,l=1,...,n$のすべての値に対して
 \end{align}
 となる場合を考えてみる．積分の順番によって結果が変わる場合である．
 この場合には，${\rm d} \pi_1,...,{\rm d} \pi_n$は$\pi_1,...,\pi_n$の微分にはならない．このような量${\rm d} \pi_1,...{\rm d} \pi_n$を\textbf{擬座標の微分}と呼ぶ．
-すなわち，速度を積分した量としての位置を定義できない．
+すなわち，速度を積分した量としての``位置''を明確な座標として定義できない．
 
 \subsection{角速度が積分できないこと}
+積分できない速度など，存在するのだろうか？答えはYesである．
 例えば剛体の角速度は積分できない．
 すなわち，角速度を積分することで姿勢を表すオイラー角やクォータニオンを得ることはできない．
 無理やり積分を行うとして，剛体の姿勢は積分の経路に依存してしまうからである．
+
 例えば，ある剛体を$y$軸と$z$軸まわりにそれぞれ90 degずつ回転させるという操作を考えよう．
 初めに$z$軸まわりに回転させ，のちに$y$軸まわりに回転させた場合をFig.~\ref{fig:rotation}Aに示す．
 これに対して，順序を反転させて先に$y$軸まわりに回転させた場合をFig.\ref{fig:rotation}~Bに示す．
@@ -207,7 +211,7 @@ $r$番目の(擬)座標$\pi_r, \omega_r$についての運動方程式を，ラ�
 と書き直される．
 
 \subsection*{係数の整理}
-ここで，
+ここで，\footnote{インデックス記号がややこしくなるので，総和に関する記号はアルファベットではなく$\#$を用いた．初めて見ると驚くかもしれないが，あえてこのようにした．}
 \begin{align*}
     \omega_i   &= a_{i1}\dot{q}_1 + \cdots + a_{in}\dot{q}_n\\
                 &=\quad  a_{i1}(b_{11}\omega_1+\cdots+b_{1i}\omega_i+\cdots+b_{1n}\omega_n)\\
@@ -224,7 +228,7 @@ $r$番目の(擬)座標$\pi_r, \omega_r$についての運動方程式を，ラ�
     0 & i \neq j
     \end{cases}
 \end{align*}
-となる．これをラグランジュ方程式\eqref{eq:EOM_newKineticEnergy}に代入すると，$d/dt(\partial \bar{T}/\partial \omega_k)$の項は$k=r$のみが残り，
+となる．これをラグランジュ方程式\eqref{eq:EOM_newKineticEnergy}に代入すると，$\bbn{}{t}(\henbbn{\bar{T}}{\omega_k})$の項は$k=r$のみが残り，
 \begin{align}
     \bbn{}{t}\left(\henbbn{\bar{T}}{\omega_r}\right)+\sum_i\sum_k b_{ir}\bbn{a_{ik}}{t}\henbbn{\bar{T}}{\omega_k}-\sum_i b_{ir}\henbbn{T}{q_i}=F_r
 \end{align}
@@ -241,7 +245,7 @@ $r$番目の(擬)座標$\pi_r, \omega_r$についての運動方程式を，ラ�
 を得る．
 
 \subsection*{位置に関係する項}
-残るは$\partial T/\partial q_i$の項のみである．
+残るは$\henbbn{T}{q_i}$の項のみである．
 $\bar{T}$は$q_1,...,q_n$と$\omega_1,...,\omega_n$の関数である．チェインルールから
 \begin{align*}
     \henbbn{T}{q_i} &= \henbbn{\bar{T}}{q_i}+\henbbn{\bar{T}}{\omega_1}\henbbn{\omega_1}{q_i} + \henbbn{\bar{T}}{\omega_2}\henbbn{\omega_2}{q_i} \cdots +\henbbn{\bar{T}}{\omega_n}\henbbn{\omega_1}{q_n}\\
@@ -321,7 +325,7 @@ $\tau_1, \tau_2, \tau_3$はそれぞれ軸$Ox$, $Oy$, $Oz$のまわりの物体�
         \bbn{}{t}\left(\henbbn{\bar{T}}{\omega_3}\right) - \left(\omega_2\henbbn{\bar{T}}{\omega_1}- \omega_1\henbbn{\bar{T}}{\omega_2}\right) = \tau_3
     \end{align}
 \end{subequations}
-と表せる．
+と表せる．これはオイラーの運動方程式と呼ばれる．
 
 %================================================================
 \begin{thebibliography}{9}

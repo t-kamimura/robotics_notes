@@ -1,0 +1,112 @@
+\documentclass[a4j,10pt]{jsarticle}
+
+%================================================================
+% Include required packages
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{ascmac,setspace}
+\usepackage{cite}
+\usepackage[normalem]{ulem}
+% \usepackage{fancybox}
+%================================================================
+% Original command definition
+\def\vctr#1{\mbox{\boldmath $#1$}}
+\newcommand{\bbn}[2]{\frac{{\rm {\rm d}} #1}{{\rm {\rm d}} #2}}
+\newcommand{\henbbn}[2]{\frac{\partial #1}{\partial #2}}
+\usepackage{amsmath, amssymb,amsfonts, amsthm}
+\theoremstyle{plain}
+\newtheorem{thm}{定理}
+\newtheorem*{thm*}{定理}
+\newtheorem*{Proof}{証明}
+\newtheorem*{Proof*}{証明}
+%================================================================
+% Re-define commands
+\makeatletter % プリアンブルで定義開始
+\renewcommand{\figurename}{Fig. }  % 表示文字列を"図"から"Figure"へ
+\makeatother % プリアンブルで定義終了
+%================================================================
+\begin{document}
+%================================================================
+\title{解説：ベクトルにかかっている行列を求める}
+\author{上村知也}
+%================================================================
+\setlength{\baselineskip}{3.8mm}	% 行間の設定
+\maketitle
+%\thispagestyle{empty}
+%\pagestyle{empty}
+\setstretch{1.0} % ページ全体の行間を設定
+%================================================================
+% \tableofcontents
+% \newpage
+%================================================================
+
+
+\begin{thm*}
+    あるベクトル$x \in \mathbb{R}^n$, $y \in \mathbb{R}^m$の間に，行列$A \in \mathbb{R}^{m \times n}$が存在して，
+    \begin{align}
+        y=Ax
+    \end{align}
+    という関係が成立している．
+    $x$と$y$は既知であり，$A\in \mathbb{R}^{m\times n}$が未知の場合を考えよう．
+
+    このとき，ベクトル$x$にかかっている行列$A$はヤコビ行列を用いて
+
+    \begin{align}
+        A = \frac{\partial y}{\partial x}
+        =\begin{bmatrix}
+        \dfrac{\partial y_1}{\partial x_1} & \dfrac{\partial y_1}{\partial x_2} & \cdots & \dfrac{\partial y_1}{\partial x_n}\\
+        \dfrac{\partial y_2}{\partial x_1} & \dfrac{\partial y_2}{\partial x_2} & \cdots & \dfrac{\partial y_2}{\partial x_n}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        \dfrac{\partial y_m}{\partial x_1} & \dfrac{\partial y_m}{\partial x_2} & \cdots & \dfrac{\partial y_m}{\partial x_n}\\
+        \end{bmatrix}
+    \end{align}
+
+    で求められる．
+\end{thm*}
+
+\begin{proof}[証明]
+$x \in \mathbb{R}^n$に対して定義されるスカラー関数$f(x) \in \mathbb{R}$の全微分は
+\begin{align}
+    \mathrm{d}f(x) = \dfrac{\partial f}{\partial x_1} \mathrm{d}x_1+ \dfrac{\partial f}{\partial x_2} \mathrm{d}x_2 + \cdots +\dfrac{\partial f}{\partial x_n} \mathrm{d}x_n
+\end{align}
+で与えられる．
+
+ベクトル関数$y=f(x)\in \mathbb{R}^m$でも同様に，全微分は
+\begin{equation}
+    \begin{aligned}
+        \mathrm{d}y_1 &= f_1'(x) = \dfrac{\partial f_1}{\partial x_1} \mathrm{d}x_1+ \dfrac{\partial f_1}{\partial x_2} \mathrm{d}x_2 + \cdots +\dfrac{\partial f_1}{\partial x_n} \mathrm{d}x_n\\
+    \mathrm{d}y_2 &= f_2'(x) = \dfrac{\partial f_2}{\partial x_1} \mathrm{d}x_1+ \dfrac{\partial f_2}{\partial x_2} \mathrm{d}x_2 + \cdots +\dfrac{\partial f_2}{\partial x_n} \mathrm{d}x_n\\
+    &\vdots\\
+    \mathrm{d}y_m &=f_m'(x) = \dfrac{\partial f_m}{\partial x_1} \mathrm{d}x_1+ \dfrac{\partial f_m}{\partial x_2} \mathrm{d}x_2 + \cdots +\dfrac{\partial f_m}{\partial x_n} \mathrm{d}x_n
+    \end{aligned}
+    \label{eq:dy}
+\end{equation}
+で与えられる．
+
+ここでヤコビ行列$J$を
+\begin{align}
+    J = \frac{\partial y}{\partial x}= \frac{\partial f(x)}{\partial x}
+    =\begin{bmatrix}
+    \dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} & \cdots & \dfrac{\partial f_1}{\partial x_n}\\
+    \dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2} & \cdots & \dfrac{\partial f_2}{\partial x_n}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    \dfrac{\partial f_m}{\partial x_1} & \dfrac{\partial f_m}{\partial x_2} & \cdots & \dfrac{\partial f_m}{\partial x_n}\\
+\end{bmatrix}
+\end{align}
+とおいたとき，\eqref{eq:dy}は
+\begin{align}
+    \mathrm{d}y = \mathrm{d}f(x) = Jdx
+\end{align}
+と書ける．
+
+一方，$y=Ax$が成立することから
+\begin{align}
+    \mathrm{d}y = A\mathrm{d}x
+\end{align}
+も成立する．
+したがって，$A=J=\partial y/\partial x$となる．
+\end{proof}
+% ## 証明
+
+
+
+\end{document}
